@@ -13,5 +13,15 @@ export default defineConfig({
   // 解决 Monaco Editor 加载问题
   optimizeDeps: {
     include: ['monaco-editor', '@mediapipe/hands']
+  },
+  // 代理配置解决跨域问题
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })

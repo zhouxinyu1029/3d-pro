@@ -25,6 +25,23 @@ def init_db():
             create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
+    
+    # 素材表
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS materials (
+            id INT PRIMARY KEY AUTO_INCREMENT,
+            project_id INT,
+            name VARCHAR(100),
+            type VARCHAR(50),
+            file_path VARCHAR(255),
+            thumbnail VARCHAR(255),
+            size BIGINT,
+            sort_order INT DEFAULT 0,
+            create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+        )
+    ''')
     conn.commit()
     cursor.close()
     conn.close()
